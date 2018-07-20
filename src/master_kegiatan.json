@@ -1,0 +1,51 @@
+[{
+    "kode_kegiatan" : "1",    
+    "nama_kegiatan" : "SENSUS PENDUDUK",   
+    "alias" : "SP"
+  },
+  {
+    "kode_kegiatan" : "2",    
+    "nama_kegiatan" : "SENSUS EKONOMI",   
+    "alias" : "SE"
+  },
+  {
+    "kode_kegiatan" : "3",    
+    "nama_kegiatan" : "SENSUS PERTANIAN",   
+    "alias" : "ST"
+  },
+  {
+    "kode_kegiatan" : "4",    
+    "nama_kegiatan" : "EKSPOR",   
+    "alias" : "EKSPOR"
+  },
+  {
+    "kode_kegiatan" : "5",    
+    "nama_kegiatan" : "IMPOR",   
+    "alias" : "IMPOR"
+  },
+  {
+    "kode_kegiatan" : "6",    
+    "nama_kegiatan" : "SURVEI SOSIAL EKONOMI NASIONAL",   
+    "alias" : "SUSENAS"
+  },
+  {
+    "kode_kegiatan" : "7",    
+    "nama_kegiatan" : "SURVEI ANGKATAN KERJA NASIONAL",   
+    "alias" : "SAKERNAS"
+  },
+  {
+    "kode_kegiatan" : "8",    
+    "nama_kegiatan" : "POTENSI DESA",   
+    "alias" : "PODES"
+  },
+  {
+    "kode_kegiatan" : "9",    
+    "nama_kegiatan" : "SURVEI TAHUNAN PERUSAHAAN INDUSTRI MANUFAKTUR",   
+    "alias" : "IBS"
+  },
+  {
+    "kode_kegiatan" : "10",    
+    "nama_kegiatan" : "SURVEI INDUSTRI MIKRO DAN KECIL",   
+    "alias" : "IMK"
+  }
+]
