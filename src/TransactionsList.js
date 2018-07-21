@@ -9,12 +9,10 @@ module.exports = class TransactionsList extends CollectionView {
 	    this.getJSON().then(json => {
 	    	this.transaksi_arr = json;
 	    	this.itemCount = this.transaksi_arr.length;
-	    	// console.log("json get: " + this.idKonsumen);
 	    })
 	}
 
 	getJSON() {
-		//console.log("json get data" + id_konsumen)
 		return fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/transaksi?id=' + this.idKonsumen).then(response => response.json());
 	}
 
@@ -93,9 +91,9 @@ module.exports = class TransactionsList extends CollectionView {
 	}
 
 	_showTransactionDetails(target) {
-		console.log(target.parent().item);
-		console.log("ini ui lho :")
-		console.log(ui.find('#nav').first());
+		// console.log(target.parent().item);
+		// console.log("ini ui lho :")
+		// console.log(ui.find('#nav').first());
 		let transaction = target.parent().item
     	new TransactionDetails({
     		title: 'ID Transaksi : ' + target.parent().item.id_transaksi, 

@@ -9,34 +9,28 @@ module.exports = class TransactionDetails extends Page {
 
   createUI(){
     let _status = '';
-    let _check = ['process', 'dot-green', 'dot-green', 'dot-green'];
-    let _color = ['green', 'black', 'black', 'black'];
+    let _check = [];
     let textS = ['Menunggu', 'Diproses', 'Berkas Tersedia', 'Selesai'];
     switch(this.transaction.status_transaksi){
       case '1':
         _status = textS[0];
-        _check = ['process', 'dot-green', 'dot-green', 'dot-green'];
-        _color = ['green', 'black', 'black', 'black'];
+        _check = ['check', 'uncheck', 'uncheck', 'uncheck'];
         break;
       case '2':
         _status = textS[1];
-        _check = ['dot-green', 'process', 'dot-green', 'dot-green'];
-        _color = ['', 'green', 'black', 'black'];
+        _check = ['check', 'check', 'uncheck', 'uncheck'];
         break;
       case '3':
         _status = textS[2];
-        _check = ['dot-green', 'dot-green', 'process', 'dot-green'];
-        _color = ['', '', 'green', 'black'];
+        _check = ['check', 'check', 'check', 'uncheck'];
         break;
       case '4':
         _status = textS[3];
-        _check = ['dot-green', 'dot-green', 'dot-green', 'check_black'];
-        _color = ['', '', '', ''];
+        _check = ['check', 'check', 'check', 'check'];
         break;
       default:
         _status = textS[0];
-        _check = ['process', 'dot-green', 'dot-green', 'dot-green'];
-        _color = ['green', 'black', 'black', 'black'];
+        _check = ['check', 'uncheck', 'uncheck', 'uncheck'];
     };
 
     let compositeView = this.append(
@@ -63,107 +57,34 @@ module.exports = class TransactionDetails extends Page {
       let date2 = new Date();
       var timeDiff = Math.abs(date2.getTime() - date1.getTime());
       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      console.log("Jml hari : " + diffDays);
 
-      new TextView({
-        left: '10%', right: '10%', top: 'prev() 10',
-        alignment: 'center',
-        text: 'Menunggu'
-      }).appendTo(scrollView);
-
-      new ImageView({
-        left: '10%', right: '10%', top: 'prev() 5', height: 40,
-        image: 'src/images/'+_check[0]+'.png',
-        tintColor: _color[0],
-        scaleMode: 'auto'
-      }).appendTo(scrollView);
-
-      new TextView({
+      new ProgressBar({
         left: '10%', right: '10%', top: 'prev() 5',
-        alignment: 'center',
-        text: json[0]['tgl_minta']
+        tintColor: 'red',
+        maximum: 100,
+        selection: 100
       }).appendTo(scrollView);
-
-      new ImageView({
-        left: '10%', right: '10%', top: 'prev() 5', height: 80,
-        image: 'src/images/line-dash.png',
-        scaleMode: 'auto'
-      }).appendTo(scrollView);
-
-      new TextView({
-        left: '10%', right: '10%', top: 'prev() 5',
-        alignment: 'center',
-        text: 'Diproses'
-      }).appendTo(scrollView);
-
-      new ImageView({
-        left: '10%', right: '10%', top: 'prev() 5', height: 40,
-        image: 'src/images/'+_check[1]+'.png',
-        tintColor: _color[1],
-        scaleMode: 'auto'
-      }).appendTo(scrollView);
-
-      new TextView({
-        left: '10%', right: '10%', top: 'prev() 5',
-        alignment: 'center',
-        text: json[0]['tgl_diproses']
-      }).appendTo(scrollView);
-
-      new ImageView({
-        left: '10%', right: '10%', top: 'prev() 5', height: 80,
-        image: 'src/images/line-dash.png',
-        scaleMode: 'auto'
-      }).appendTo(scrollView);
-
-      new TextView({
-        left: '10%', right: '10%', top: 'prev() 5',
-        alignment: 'center',
-        text: 'Berkas Tersedia'
-      }).appendTo(scrollView);
-
-      new ImageView({
-        left: '10%', right: '10%', top: 'prev() 5', height: 40,
-        image: 'src/images/'+_check[2]+'.png',
-        tintColor: _color[2],
-        scaleMode: 'auto'
-      }).appendTo(scrollView);
-
-      new TextView({
-        left: '10%', right: '10%', top: 'prev() 5',
-        alignment: 'center',
-        text: json[0]['tgl_berkas_tersedia']
-      }).appendTo(scrollView);
-
-      new ImageView({
-        left: '10%', right: '10%', top: 'prev() 5', height: 80,
-        image: 'src/images/line-dash.png',
-        scaleMode: 'auto'
-      }).appendTo(scrollView);
-
-      new TextView({
-        left: '10%', right: '10%', top: 'prev() 5',
-        alignment: 'center',
-        text: 'Selesai'
-      }).appendTo(scrollView);
-
-      new ImageView({
-        left: '10%', right: '10%', top: 'prev() 5', height: 40,
-        image: 'src/images/'+_check[3]+'.png',
-        tintColor: _color[3],
-        scaleMode: 'auto'
-      }).appendTo(scrollView);
-
-      new TextView({
-        left: '10%', right: '10%', top: 'prev() 5',
-        alignment: 'center',
-        text: json[0]['tgl_pemenuhan']
-      }).appendTo(scrollView);
-
-
 
       new TextView({
         //left: '10%', right: '10%', top: ['#imgStatus3', 15],
-        left: '10%', right: '10%', top: 'prev() 20',
-        text: 'Total Waktu Transaksi : ' + diffDays + ' Hari'
+        left: '10%', right: '10%', top: 'prev() 5',
+        text: 'Tanggal Permintaan : '
+      }).appendTo(scrollView);
+
+      new TextView({
+        left: '10%', right: '10%', top: 'prev() 5',
+        text: this.transaction.tgl_minta
+      }).appendTo(scrollView);
+
+      new TextView({
+        left: '10%', right: '10%', top: 'prev() 10',
+        text: 'Tanggal Pemenuhan : '
+      }).appendTo(scrollView);
+
+      new TextView({
+        left: '10%', right: '10%', top: 'prev() 5',
+        text: this.transaction.tgl_pemenuhan
       }).appendTo(scrollView);
 
       new TextView({
@@ -213,6 +134,36 @@ module.exports = class TransactionDetails extends Page {
     }).catch((err) => {
       console.log('Error: retrive gagal');
     });
+
+    // new ImageView({
+    //   id: 'imgStatus0',
+    //   left: '10%', top: 'prev() 15', height: 40,
+    //   image: 'src/images/' + _check[0] + '_black.png',
+    //   scaleMode: 'auto'
+    // }).appendTo(scrollView);
+
+    // new TextView({
+    //   left: ['#imgStatus0', 10], right: '10%', top: ['#textStatus', 23],
+    //   text: textS[0]
+    // }).appendTo(scrollView);
+
+    // for (var i = 0; i < 3; i++) {
+    //   let j = i + 1;
+
+    //   new ImageView({
+    //     id: 'imgStatus' + j,
+    //     left: '10%', top: ['#imgStatus'+i, 5], height: 40,
+    //     image: 'src/images/' + _check[j] + '_black.png',
+    //     scaleMode: 'auto'
+    //   }).appendTo(scrollView);
+
+    //   new TextView({
+    //     left: ['#imgStatus'+j, 10], right: '10%', top: ['#imgStatus'+i, 13],
+    //     text: textS[j]
+    //   }).appendTo(scrollView);
+    // };
+
+
 
   }
 

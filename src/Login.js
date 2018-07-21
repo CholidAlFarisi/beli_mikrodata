@@ -64,24 +64,32 @@ function goHome () {
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
   http.onreadystatechange = function() {//Call a function when the state changes.
-      console.log("server : " + http.readyState)
-      console.log("server status : " + http.status)
+      // console.log("server : " + http.readyState)
+      // console.log("server status : " + http.status)
       if(http.readyState == 4) {
-          //console.log("menunggu balasan");
-          //console.log(http.responseText);
-          if (http.responseText.length != 2) {
-            let idk = http.responseText.split('"');
-            new Home_Page({
-              idKonsumen: idk[1]
-            }).appendTo(navigationView);
-          } else {
+          if (http.status == 500) {
             new TextView({
               top: ['#loginButton', 10], left: '20%', right: '20%',
-              text: 'Maaf email atau password anda salah',
+              text: 'Maaf terjadi kesalahan pada server atau server tidak dapat ditemukan',
               alignment: 'center',
               textColor: 'red'
             }).appendTo(loginPage);
+          } else {
+            if (http.responseText.length != 2) {
+              let idk = http.responseText.split('"');
+              new Home_Page({
+                idKonsumen: idk[1]
+              }).appendTo(navigationView);
+            } else {
+              new TextView({
+                top: ['#loginButton', 10], left: '20%', right: '20%',
+                text: 'Maaf email atau password anda salah',
+                alignment: 'center',
+                textColor: 'red'
+              }).appendTo(loginPage);
+            }
           }
+          
       }
   }
   http.send(params);

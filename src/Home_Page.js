@@ -5,13 +5,13 @@ module.exports = class Home_page extends Page {
 
 	constructor(properties) {
 	    super(Object.assign({id: 'home', autoDispose: true}, properties));
-	    console.debug(this);
+	    //console.debug(this);
 	    this.createUI();
 	    this.applyLayout();
   	}
 
 	createUI(){
-		console.log('home page : ' + this.idKonsumen);
+		//console.log('home page : ' + this.idKonsumen);
 
 		let _compositeView = this.append(
 			new Composite({
