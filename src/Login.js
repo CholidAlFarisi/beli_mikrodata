@@ -51,6 +51,23 @@ new Button({
 }).on('select',() => { goHome()
 }).appendTo(loginPage);
 
+// new Button({
+//   left: '20%', right: '20%', top: 'prev() 20',
+//   text: 'coba',
+//   background: '#5495ff',
+//   textColor: 'white'
+// }).on('select',() => { linkCoba()
+// }).appendTo(loginPage);
+
+// function linkCoba(){
+//   let xhr = new XMLHttpRequest();
+//   xhr.open('GET', 'https://www.google.com/', true);
+//   xhr.onload = function () {
+//     console.log(xhr.responseURL); // http://example.com/test
+//   };
+//   xhr.send(null);
+// }
+
 function goHome () {
   const Home_Page = require('./Home_Page');
 
@@ -83,7 +100,8 @@ function goHome () {
             } else {
               new TextView({
                 top: ['#loginButton', 10], left: '20%', right: '20%',
-                text: 'Maaf email atau password anda salah',
+                markupEnabled: true,
+                text: 'Maaf email atau password anda salah. <br/>Jika anda belum memiliki akun SILASTIK silahkan mendaftar di <a href="https://bps.go.id/konsumen/create.html">https://bps.go.id/konsumen/create.html</a>',
                 alignment: 'center',
                 textColor: 'red'
               }).appendTo(loginPage);
