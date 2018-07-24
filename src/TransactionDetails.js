@@ -205,9 +205,10 @@ module.exports = class TransactionDetails extends Page {
         text: 'Keterangan Transaksi : '
       }).appendTo(scrollView);
 
+      let ket = this.transaction.ket_transaksi.split("|");
       new TextView({
-        left: '10%', right: '10%', top: 'prev() 5', height: 100,
-        text: this.transaction.ket_transaksi
+        left: '10%', right: '10%', top: 'prev() 2',
+        text: "Abstraksi : " + ket[0] + "\nTopik : " + ket[1] + "\nPesan : " + ket[2]
       }).appendTo(scrollView);
 
     }).catch((err) => {

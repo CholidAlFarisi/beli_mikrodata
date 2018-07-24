@@ -29,7 +29,7 @@ module.exports = class FormTransaction5 extends Page {
     new TextInput({
       id: 'abstraksi',
       left: '10%', right: '10%', top: 'prev() 5', height: 150,
-      background: '#eaf2ff'
+      background: 'gray'
     }).appendTo(_scrollView);
 
     new TextView({
@@ -78,14 +78,14 @@ module.exports = class FormTransaction5 extends Page {
       for (var i = 0; i < a.length; i++) {
         let splitter = a[i].split("-");
         dataDiminta = dataDiminta + "|" + splitter[1] + " " + splitter[2];
-        console.log("ke-" + i + "=" + dataDiminta);
+        //console.log("ke-" + i + "=" + dataDiminta);
       }
 
       for (var i = 0; i < b.length; i++) {
         let splitter = b[i].split("-");
         dataDiminta = dataDiminta + "|" + splitter[0];
       }
-      console.log("data : \n" + dataDiminta);
+      //console.log("data : \n" + dataDiminta);
 
       //send to server
       let http = new XMLHttpRequest();
@@ -98,8 +98,8 @@ module.exports = class FormTransaction5 extends Page {
       http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
       http.onreadystatechange = function() {//Call a function when the state changes.
-          console.log("server : " + http.readyState)
-          console.log("server status : " + http.status)
+          // console.log("server : " + http.readyState)
+          // console.log("server status : " + http.status)
           if(http.readyState == 4) {
               console.log("menunggu balasan");
               console.log(http.responseText);

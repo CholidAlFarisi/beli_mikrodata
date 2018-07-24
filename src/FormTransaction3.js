@@ -3,7 +3,7 @@ const {Button, CheckBox, Composite, TextView, TextInput, Picker, RadioButton, Sc
 module.exports = class FormTransaction3 extends Page {
 
   constructor(properties) {
-    super(Object.assign({id: 'Form', title:'FORM', autoDispose: false, refreshEnabled: false}, properties));
+    super(Object.assign({id: 'Form', title:'FORM', autoDispose: false}, properties));
     this.createUI();
     //this.applyLayout();
   }
@@ -51,11 +51,39 @@ module.exports = class FormTransaction3 extends Page {
 
     new Button({
       left: '10%', right: '10%', top: 'prev() 10',
+      text: 'Select All',
+      background: '#5495ff',
+      textColor: 'white'
+    }).on('select', () => { selectAll();
+    }).appendTo(compositeView);
+
+    new Button({
+      left: '10%', right: '10%', top: 'prev() 10',
+      text: 'Unselect All',
+      background: '#5495ff',
+      textColor: 'white'
+    }).on('select', () => { unselectAll();
+    }).appendTo(compositeView);
+
+    new Button({
+      left: '10%', right: '10%', top: 'prev() 10',
       text: 'Next',
       background: '#5495ff',
       textColor: 'white'
     }).on('select', () => { nextForm(this.publikasi[0].item, this.publikasi[0].idKonsumen);
     }).appendTo(compositeView);
+
+    function selectAll(){
+      for (var i = 0; i < checkBoxCount; i++) {
+        scrollView.children('#varChoice' + i).first().checked = true;
+      }
+    }
+
+    function unselectAll(){
+      for (var i = 0; i < checkBoxCount; i++) {
+        scrollView.children('#varChoice' + i).first().checked = false;
+      }
+    }
 
     function nextForm(rawData, id) {
       const FormTransaction4 = require('./FormTransaction4');

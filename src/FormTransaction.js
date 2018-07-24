@@ -1,13 +1,9 @@
 const {ActivityIndicator, Button, CheckBox, Composite, TextView, TextInput, Picker, RadioButton, ScrollView, Slider, Switch, ui, Page, fs} = require('tabris');
-const KegiatanList = require('./KegiatanList');
-
-const YEAR = [2010, 2011, 2012, 2013, 2014, 2015];
-const KEGIATAN = ['Kegiatan 1', 'Kegiatan 2', 'Kegiatan 3', 'Kegiatan 4', 'Kegiatan 5'];
 
 module.exports = class FormTransaction extends Page {
 
   constructor(properties) {
-    super(Object.assign({id: 'Form', title:'FORM', autoDispose: false, refreshEnabled: false}, properties));
+    super(Object.assign({id: 'Form', title:'FORM', autoDispose: false}, properties));
     this.createUI();
     this.applyLayout();
   }
@@ -33,15 +29,19 @@ module.exports = class FormTransaction extends Page {
       })
     );
 
+    let mainScroll = new ScrollView({
+      left: 0, top: 0, right: 0, bottom: 0
+    }).appendTo(compositeView);
+
     new TextView({
         left: '10%', right: '10%', top: 5,
         text: 'Kegiatan : '
-    }).appendTo(compositeView);
+    }).appendTo(mainScroll);
 
     let scrollView = new ScrollView ({
       left: '10%', right: '10%', top: 'prev() 5', height: 150,
       background: '#eaf2ff'
-    }).appendTo(compositeView);
+    }).appendTo(mainScroll);
 
     //testing
     fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/kegiatan')
@@ -49,7 +49,7 @@ module.exports = class FormTransaction extends Page {
     .then((json) => {
       // Show the result location data
       for (var i = 0; i < json.length; i++) {
-        createRadioButton(json[i].kode_kegiatan, json[i].alias);
+        createRadioButton(json[i].kode_kegiatan, json[i].nama_kegiatan);
       };
 
     }).catch((err) => {
@@ -59,11 +59,11 @@ module.exports = class FormTransaction extends Page {
     new TextView({
         left: '10%', right: '10%', top: 'prev() 10',
         text: 'Tahun : '
-    }).appendTo(compositeView);
+    }).appendTo(mainScroll);
 
     let compositeView2 = new Composite({
       left: '10%', right: '10%', top: 'prev() 5',
-    }).appendTo(compositeView);
+    }).appendTo(mainScroll);
 
     fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/tahun')
     .then(response => response.json())
@@ -82,32 +82,43 @@ module.exports = class FormTransaction extends Page {
         itemCount: yearArr.length,
         itemText: index => yearArr[index].tahun + ''
       }).on('select', (target, value) => {
-        console.log("onselect="+target.index)
+        //console.log("onselect="+target.index)
         indexYear_selected = target.index
       }).appendTo(compositeView2);
 
       year_selected = yearArr[indexYear_selected].tahun;
-      console.log('selected year: ' + year_selected);
+      //console.log('selected year: ' + year_selected);
     }
+
+    // let description = new ScrollView({
+    //   left: '10%', right: '10%', top: 'prev() 10', height: 100,
+    //   background: '#eaf2ff'
+    // }).appendTo(mainScroll);
+
+    // new TextView({
+    //   class: 'desk',
+    //   left: '10%', right: '10%', top: 'prev() 10',
+    //   text: json[0].deskripsi
+    // }).appendTo(description);
 
     new Button({
       left: '10%', right: '10%', top: 'prev() 10',
-      text: 'Select',
+      text: 'Pilih Kegiatan',
       background: '#5495ff',
       textColor: 'white'
     }).on('select', () => { updateMessage(this.idKonsumen);
-    }).appendTo(compositeView);
+    }).appendTo(mainScroll);
 
     new TextView({
         left: '10%', right: '10%', top: 'prev() 10',
         text: 'Kegiatan Terpilih : '
-    }).appendTo(compositeView);
+    }).appendTo(mainScroll);
 
     let scrollView2 = new ScrollView ({
       id: 'scr_selected',
       left: '10%', right: '10%', top: 'prev() 5', height: 130,
       background: '#eaf2ff'
-    }).appendTo(compositeView);
+    }).appendTo(mainScroll);
 
     new TextView({
       id: 'text_selected',
@@ -122,20 +133,20 @@ module.exports = class FormTransaction extends Page {
       background: '#5495ff',
       textColor: 'white'
     }).on('select', () => { nextForm();
-    }).appendTo(compositeView);
+    }).appendTo(mainScroll);
 
     compositeView.apply({
       '#yearPicker': {left: '10%', right: '10%', top: 'prev() 10'},
     });
 
     function updateMessage(id) {
-      console.log("form 1 id : " + id);
+      //console.log("form 1 id : " + id);
       let pickerValAll = pilihKegiatan();
-      let pickerVal = pickerValAll.split(" ");
+      let pickerVal = pickerValAll.split("-");
       let scrVal = compositeView2.children('#yearPicker').first();
-      console.log('testing :' + pickerVal + ' testing : ' + scrVal.itemText(scrVal.selectionIndex))
+      //console.log('testing :' + pickerVal + ' testing : ' + scrVal.itemText(scrVal.selectionIndex))
       for (var i = 0; i < objKegiatan.length; i++) {
-        if (objKegiatan[i].kegiatan == pickerVal && objKegiatan[i].tahun == scrVal.itemText(scrVal.selectionIndex)) {
+        if (objKegiatan[i].kode_kegiatan == pickerVal[0] && objKegiatan[i].tahun == scrVal.itemText(scrVal.selectionIndex)) {
         //if (objKegiatan[i].kegiatan != pickerVal) {
           console.log('sama');
           break;
@@ -196,10 +207,24 @@ module.exports = class FormTransaction extends Page {
     function createRadioButton(kode, text) {
       new RadioButton({
         left: '5%', right: '5%', top: 'prev() 5',
-        text: kode + " " + text
+        text: kode + "-" + text
         //class: 'locationData'
       }).appendTo(scrollView);
     }
+
+    // function getDeskripsi(id){
+    //   TextView.find('.desk').dispose();
+    //   fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/kegiatan?id=' + id)
+    //   .then(response => response.json())
+    //   .then((json) => {
+    //     // Show the result location data
+    //     new TextView({
+    //       class: 'desk',
+    //       left: '10%', right: '10%', top: 'prev() 10',
+    //       text: json[0].deskripsi
+    //     }).appendTo(description);
+    //   })
+    // }
 
   };
 

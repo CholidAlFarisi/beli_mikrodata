@@ -30,7 +30,7 @@ module.exports = class Home_page extends Page {
 
 		new Action({
 			title: 'Permintaan Baru',
-			placementPriority: 'high',
+			placementPriority: 'low',
 			image: 'src/images/page.png'
 		}).on('select',() => { newForm(this.idKonsumen);
 		}).appendTo(_navigationView);

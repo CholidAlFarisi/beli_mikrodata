@@ -46,8 +46,8 @@ module.exports = class TransactionsList extends CollectionView {
 				left: '5%', right: '5%', top: 'prev() 10',
 			}),
 			new Button({
-			    left: '1%', right: '1%', top: 'prev() 5',
-			    background: 'white'
+			    left: 0, right: 0, top: 'prev() 5',
+			    background: '#5495ff'
 			}).on('select', ({target}) => this._showTransactionDetails(target))		
 		)
 
@@ -66,7 +66,7 @@ module.exports = class TransactionsList extends CollectionView {
 	    switch(t.status_transaksi){
 	      case '1':
 	        _status = 'Menunggu';
-	        text_color = 'red';
+	        text_color = 'gray';
 	        break;
 	      case '2':
 	        _status = 'Diproses';
@@ -85,15 +85,12 @@ module.exports = class TransactionsList extends CollectionView {
 	    };
 
 		view.find('#container').first().apply({
-			Button: {text: 'Details', textColor: text_color},
-			TextView: {text: 'ID Transaksi : ' + t.id_transaksi + '\nTanggal Permintaan Dibuat : ' + t.tgl_minta + '\nStatus : ' + _status}
+			Button: {text: 'Details', textColor: 'white', background: text_color},
+			TextView: {text: 'ID Transaksi : ' + t.id_transaksi + '\nTanggal Permintaan Dibuat : ' + t.tgl_minta + '\nStatus : ' + _status, textColor: text_color}
 		});
 	}
 
 	_showTransactionDetails(target) {
-		// console.log(target.parent().item);
-		// console.log("ini ui lho :")
-		// console.log(ui.find('#nav').first());
 		let transaction = target.parent().item
     	new TransactionDetails({
     		title: 'ID Transaksi : ' + target.parent().item.id_transaksi, 

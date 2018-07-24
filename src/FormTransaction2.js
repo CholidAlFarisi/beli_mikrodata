@@ -3,13 +3,13 @@ const {Button, CheckBox, Composite, TextView, TextInput, Picker, RadioButton, Sc
 module.exports = class FormTransaction2 extends Page {
 
   constructor(properties) {
-    super(Object.assign({id: 'Form', title:'FORM', autoDispose: false, refreshEnabled: false}, properties));
+    super(Object.assign({id: 'Form', title:'FORM', autoDispose: false}, properties));
     this.createUI();
     //this.applyLayout();
   }
 
   createUI(){
-    console.log("Form 2 id: " + this.kegiatan[0].idKonsumen);
+    //console.log("Form 2 id: " + this.kegiatan[0].idKonsumen);
 
     let checkBoxCount = 0;
 
@@ -30,11 +30,17 @@ module.exports = class FormTransaction2 extends Page {
       background: '#eaf2ff'
     }).appendTo(compositeView);
 
+    new TextView({
+      id: 'warn',
+      left: '10%', right: '10%', top: 'prev() 5'
+    }).appendTo(scrollView);
+
     for (var i = 0; i < this.kegiatan.length; i++) {
       fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/rawdata?kegiatan=' + this.kegiatan[i].kode_kegiatan + '&tahun=' + this.kegiatan[i].tahun)
       .then(response => response.json())
       .then((json) => {
         //console.log(json)
+        ui.find('#warn').dispose();
         for (var i = 0; i < json.length; i++) {
           new CheckBox ({
             id: 'pubChoice' + checkBoxCount,
@@ -44,7 +50,13 @@ module.exports = class FormTransaction2 extends Page {
           checkBoxCount = checkBoxCount + 1;
         }
       }).catch((err) => {
-        console.log('Error: retrive gagal');
+        ui.find('#warn').dispose();
+        new TextView({
+          id: 'warn',
+          left: '10%', right: '10%', top: 'prev() 5',
+          text: 'Maaf kegiatan yang anda cari tidak tersedia atau tidak terdapat pada tahun yang bersangkutan',
+          textColor: 'red'
+        }).appendTo(scrollView);
       });
     }
 
