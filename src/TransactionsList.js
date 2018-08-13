@@ -3,7 +3,7 @@ const TransactionDetails = require('./TransactionDetails');
 
 module.exports = class TransactionsList extends CollectionView {
 
-  	// Create loading indicator
+  	// Membuat indikator pada halaman baru
   	constructor(properties) {
 		super(Object.assign({id: 'transactionsList'}, properties));
 	    this.getJSON().then(json => {
@@ -12,8 +12,9 @@ module.exports = class TransactionsList extends CollectionView {
 	    })
 	}
 
+	//Mengirim permintaan data dengan metode GET pada API dari database dan mendapatkan balasan berupa data JSON
 	getJSON() {
-		return fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/transaksi?id=' + this.idKonsumen).then(response => response.json());
+		return fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/transaksi?key=SKRIPSI2018&id=' + this.idKonsumen).then(response => response.json());
 	}
 
 	get transaction() {
@@ -33,7 +34,6 @@ module.exports = class TransactionsList extends CollectionView {
 	}
 
 	createCell() {
-		console.log("tran" + this.idKonsumen);
 		super.createCell()
 		let cell = new Composite();
 		let container = new Composite({
@@ -70,15 +70,19 @@ module.exports = class TransactionsList extends CollectionView {
 	        break;
 	      case '2':
 	        _status = 'Diproses';
-	        text_color = 'blue';
+	        text_color = '#fc7a23';
 	        break;
 	      case '3':
 	        _status = 'Berkas Tersedia';
-	        text_color = 'green';
+	        text_color = 'blue';
 	        break;
 	      case '4':
 	        _status = 'Selesai';
 	        text_color = 'green';
+	        break;
+	      case 'F':
+	        _status = 'Dibatalkan';
+	        text_color = 'red';
 	        break;
 	      default:
 	        _status = 'Menunggu';

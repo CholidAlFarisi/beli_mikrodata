@@ -3,13 +3,11 @@ const {Button, CheckBox, Composite, TextView, TextInput, Picker, RadioButton, Sc
 module.exports = class FormTransaction2 extends Page {
 
   constructor(properties) {
-    super(Object.assign({id: 'Form', title:'FORM', autoDispose: false}, properties));
+    super(Object.assign({id: 'Form2', title:'FORM', autoDispose: false}, properties));
     this.createUI();
-    //this.applyLayout();
   }
 
   createUI(){
-    //console.log("Form 2 id: " + this.kegiatan[0].idKonsumen);
 
     let checkBoxCount = 0;
 
@@ -36,10 +34,9 @@ module.exports = class FormTransaction2 extends Page {
     }).appendTo(scrollView);
 
     for (var i = 0; i < this.kegiatan.length; i++) {
-      fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/rawdata?kegiatan=' + this.kegiatan[i].kode_kegiatan + '&tahun=' + this.kegiatan[i].tahun)
+      fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/rawdata?key=SKRIPSI2018&kegiatan=' + this.kegiatan[i].kode_kegiatan + '&tahun=' + this.kegiatan[i].tahun)
       .then(response => response.json())
       .then((json) => {
-        //console.log(json)
         ui.find('#warn').dispose();
         for (var i = 0; i < json.length; i++) {
           new CheckBox ({
@@ -72,9 +69,7 @@ module.exports = class FormTransaction2 extends Page {
       const FormTransaction3 = require('./FormTransaction3');
       let item = [];
       let j = 0;
-      //console.log('luar : ' + checkBoxCount);
       for (var i = 0; i < checkBoxCount; i++) {
-        //console.log(scrollView.children('#varChoice' + i).first().text);
         let c = scrollView.children('#pubChoice' + i).first().checked;
         if (c == true) {
           item[j] = scrollView.children('#pubChoice' + i).first().text;
@@ -86,7 +81,6 @@ module.exports = class FormTransaction2 extends Page {
         'idKonsumen' : id,
         'item' : item
       }];
-      console.log("superItem : " + superItem[0].idKonsumen);
 
       new FormTransaction3({
         title: 'Form 3 ',

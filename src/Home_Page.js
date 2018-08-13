@@ -3,15 +3,15 @@ const TransactionsList = require('./TransactionsList');
 
 module.exports = class Home_page extends Page {
 
+	//Membuat indikator pada halaman baru
 	constructor(properties) {
 	    super(Object.assign({id: 'home', autoDispose: true}, properties));
-	    //console.debug(this);
 	    this.createUI();
 	    this.applyLayout();
   	}
 
+  	//Membuat UI halaman 'Daftar Transaksi'
 	createUI(){
-		//console.log('home page : ' + this.idKonsumen);
 
 		let _compositeView = this.append(
 			new Composite({
@@ -25,7 +25,7 @@ module.exports = class Home_page extends Page {
 		}).appendTo(_compositeView);
 
 		let hPage = new Page({
-		  title: 'Daftar Transaksi'
+		  title: 'Daftar Permintaan'
 		}).appendTo(_navigationView);
 
 		new Action({
@@ -35,11 +35,12 @@ module.exports = class Home_page extends Page {
 		}).on('select',() => { newForm(this.idKonsumen);
 		}).appendTo(_navigationView);
 
-		//call cell transaksi
+		//Memanggil cell pada file TransactionsList
 		new TransactionsList({
 			idKonsumen: this.idKonsumen
 		}).appendTo(hPage);
 
+		//Memanggil dan memberikan indikator pada file FormTransaction
 		function newForm(id) {
 		    const FormTransaction = require('./FormTransaction');
 		    new FormTransaction({
@@ -50,6 +51,7 @@ module.exports = class Home_page extends Page {
 
 	}
 
+	//Memberikan indikator layout pada object
 	applyLayout() {
 	    this.find('#transactionsList').set({left: 0, top: 0, right: 0, bottom: 0});
 	}

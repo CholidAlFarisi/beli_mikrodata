@@ -1,4 +1,4 @@
-const {WebView, ProgressBar, TextView, ui, Page, NavigationView, Composite, CollectionView, Button, ImageView, ScrollView} = require('tabris');
+const {TextView, ui, Page, NavigationView, Composite, CollectionView, Button, ImageView, ScrollView} = require('tabris');
 
 module.exports = class TransactionDetails extends Page {
 
@@ -55,10 +55,10 @@ module.exports = class TransactionDetails extends Page {
       text: 'Status : ' + _status
     }).appendTo(scrollView);
 
-    fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/statusTransaksi?id=' + this.transaction.id_transaksi)
+    fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/statusTransaksi?key=SKRIPSI2018&id=' + this.transaction.id_transaksi)
     .then(response => response.json())
     .then((json) => {
-      // Show the result location data
+
       let date1 = new Date(json[0]['tgl_minta']+"");
       let date2 = new Date();
       var timeDiff = Math.abs(date2.getTime() - date1.getTime());
@@ -161,14 +161,13 @@ module.exports = class TransactionDetails extends Page {
 
 
       new TextView({
-        //left: '10%', right: '10%', top: ['#imgStatus3', 15],
         left: '10%', right: '10%', top: 'prev() 20',
         text: 'Total Waktu Transaksi : ' + diffDays + ' Hari'
       }).appendTo(scrollView);
 
       new TextView({
         left: '10%', right: '10%', top: 'prev() 10',
-        text: 'Biaya Transaksi : '
+        text: 'Biaya Data : '
       }).appendTo(scrollView);
 
       if (this.transaction.biaya_total == null) {

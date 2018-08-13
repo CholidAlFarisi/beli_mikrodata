@@ -8,7 +8,6 @@ let navigationView = new NavigationView({
 
 let loginPage = new Page({
   title: 'Login'
-  //backgroundImage: 'src/images/pool.png'
 }).appendTo(navigationView);
 
 new ImageView({
@@ -51,38 +50,19 @@ new Button({
 }).on('select',() => { goHome()
 }).appendTo(loginPage);
 
-// new Button({
-//   left: '20%', right: '20%', top: 'prev() 20',
-//   text: 'coba',
-//   background: '#5495ff',
-//   textColor: 'white'
-// }).on('select',() => { linkCoba()
-// }).appendTo(loginPage);
-
-// function linkCoba(){
-//   let xhr = new XMLHttpRequest();
-//   xhr.open('GET', 'https://www.google.com/', true);
-//   xhr.onload = function () {
-//     console.log(xhr.responseURL); // http://example.com/test
-//   };
-//   xhr.send(null);
-// }
-
+//Memanggil halaman Home_page jika server menyatakan user ada dan mengambalikan user ID, kemudian jika user tidak ditemukan maka fungsi akan menampilkan peringatan. Fungsi mengirim input email dan password ke server dengan XMLHttpRequest() dengan metode request POST.
 function goHome () {
   const Home_Page = require('./Home_Page');
 
   let http = new XMLHttpRequest();
   let url = 'http://192.168.43.2/restServer_transaksi/index.php/rest_server/user';
 
-  let params = "email=" + loginPage.children('#email').first().text + "&pass=" + loginPage.children('#pass').first().text;
+  let params = "key=SKRIPSI2018&email=" + loginPage.children('#email').first().text + "&pass=" + loginPage.children('#pass').first().text;
   http.open('POST', url, true);
 
-  //Send the proper header information along with the request
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-  http.onreadystatechange = function() {//Call a function when the state changes.
-      // console.log("server : " + http.readyState)
-      // console.log("server status : " + http.status)
+  http.onreadystatechange = function() {
       if(http.readyState == 4) {
           if (http.status == 500) {
             new TextView({
@@ -108,6 +88,14 @@ function goHome () {
             }
           }
           
+      } else {
+        new TextView({
+          top: ['#loginButton', 10], left: '20%', right: '20%',
+          markupEnabled: true,
+          text: 'Maaf email atau password anda salah. <br/>Jika anda belum memiliki akun SILASTIK silahkan mendaftar di <a href="https://bps.go.id/konsumen/create.html">https://bps.go.id/konsumen/create.html</a>',
+          alignment: 'center',
+          textColor: 'red'
+        }).appendTo(loginPage);
       }
   }
   http.send(params);

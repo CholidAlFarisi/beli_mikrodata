@@ -5,11 +5,9 @@ module.exports = class FormTransaction4 extends Page {
   constructor(properties) {
     super(Object.assign({id: 'Form', title:'FORM', autoDispose: false, refreshEnabled: false}, properties));
     this.createUI();
-    //this.applyLayout();
   }
 
   createUI(){
-    console.log('form 4 : ' + this.requestData[0].idKonsumen);
 
     let text_persyaratan = 
     "(1.)\nSurat Perjanjian Penggunaan Data yang direkam dalam media komputer, dibuat oleh BPS sebagai penyedia data dan pengguna data sebagai penerima data dalam media komputer. Pada butir-butir selanjutnya, data dalam media komputer disebut rekaman data.\n(2.)\nBPS, menyetujui untuk menyediakan rekaman data :\n- Mikro Data / Peta Digital yang dibeli kepada penerima data dengan syarat-syarat seperti yang dirinci pada butir 3.\n(3.)\nPenerima data menyetujui bahwa pemakaian rekaman akan mengikuti syarat-syarat yang ditentukan oleh BPS yaitu :\na. Penerima data tidak akan membuat salinan dari rekaman tersebut untuk keperluan orang lain atau organisasi lain.\nb. Penerima data akan memakai rekaman tersebut hanya untuk keperluan penelitian dan analisis bagi pengguna data dengan tujuan utama memperdalam pengertian tentang keadaan Indonesia.\nc. Penggunaan rekaman untuk keperluan lain yang menyimpang dari syarat- syarat di atas perlu mendapat persetujuan teknis terlebih dahulu dari Kepala BPS.\nd. Penerima data diharapkan menyerahkan hasil penelitiannya kepada BPS.\n(4.)\nSyarat perjanjian ini ditanda tangani oleh kedua belah pihak sebagai bukti ikatan resmi. Semua data dan keterangan yang ada didalam rekaman tersebut di atas adalah rahasia dan tetap menjadi milik BPS.";

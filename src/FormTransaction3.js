@@ -3,13 +3,11 @@ const {Button, CheckBox, Composite, TextView, TextInput, Picker, RadioButton, Sc
 module.exports = class FormTransaction3 extends Page {
 
   constructor(properties) {
-    super(Object.assign({id: 'Form', title:'FORM', autoDispose: false}, properties));
+    super(Object.assign({id: 'Form3', title:'FORM', autoDispose: false}, properties));
     this.createUI();
-    //this.applyLayout();
   }
 
   createUI(){
-    console.log('form 3 : ' + this.publikasi[0].idKonsumen);
 
     let checkBoxCount = 0;
     let compositeView = this.append(
@@ -32,10 +30,9 @@ module.exports = class FormTransaction3 extends Page {
     for (var i = 0; i < this.publikasi.length; i++) {
       let textPub = _data[i].split("-");
       let idData = textPub[0];
-      fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/variabel?id_rawdata=' + idData)
+      fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/variabel?key=SKRIPSI2018&id_rawdata=' + idData)
       .then(response => response.json())
       .then((json) => {
-        //console.log(json)
         for (var i = 0; i < json.length; i++) {
           new CheckBox ({
             id: 'varChoice' + checkBoxCount,
@@ -90,9 +87,7 @@ module.exports = class FormTransaction3 extends Page {
       
       let item = [];
       let j = 0;
-      //console.log('luar : ' + checkBoxCount);
       for (var i = 0; i < checkBoxCount; i++) {
-        //console.log(scrollView.children('#varChoice' + i).first().text);
         let c = scrollView.children('#varChoice' + i).first().checked;
         if (c == true) {
           item[j] = scrollView.children('#varChoice' + i).first().text;
@@ -105,8 +100,6 @@ module.exports = class FormTransaction3 extends Page {
         'variabel' : item,
         'idKonsumen': id
       }];
-
-      console.log(item);
 
       new FormTransaction4({
         title: 'Form 4 ',
