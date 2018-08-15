@@ -55,7 +55,7 @@ module.exports = class TransactionDetails extends Page {
       text: 'Status : ' + _status
     }).appendTo(scrollView);
 
-    fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/statusTransaksi?key=SKRIPSI2018&id=' + this.transaction.id_transaksi)
+    fetch('http://kontrakangg.ddns.net:8635/restServer_transaksi/index.php/rest_server/statusTransaksi?key=SKRIPSI2018&id=' + this.transaction.id_transaksi)
     .then(response => response.json())
     .then((json) => {
 

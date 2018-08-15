@@ -34,7 +34,7 @@ module.exports = class FormTransaction2 extends Page {
     }).appendTo(scrollView);
 
     for (var i = 0; i < this.kegiatan.length; i++) {
-      fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/rawdata?key=SKRIPSI2018&kegiatan=' + this.kegiatan[i].kode_kegiatan + '&tahun=' + this.kegiatan[i].tahun)
+      fetch('http://kontrakangg.ddns.net:8635/restServer_transaksi/index.php/rest_server/rawdata?key=SKRIPSI2018&kegiatan=' + this.kegiatan[i].kode_kegiatan + '&tahun=' + this.kegiatan[i].tahun)
       .then(response => response.json())
       .then((json) => {
         ui.find('#warn').dispose();

@@ -30,7 +30,7 @@ module.exports = class FormTransaction3 extends Page {
     for (var i = 0; i < this.publikasi.length; i++) {
       let textPub = _data[i].split("-");
       let idData = textPub[0];
-      fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/variabel?key=SKRIPSI2018&id_rawdata=' + idData)
+      fetch('http://kontrakangg.ddns.net:8635/restServer_transaksi/index.php/rest_server/variabel?key=SKRIPSI2018&id_rawdata=' + idData)
       .then(response => response.json())
       .then((json) => {
         for (var i = 0; i < json.length; i++) {

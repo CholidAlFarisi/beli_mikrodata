@@ -42,7 +42,7 @@ module.exports = class FormTransaction extends Page {
       background: '#eaf2ff'
     }).appendTo(mainScroll);
 
-    fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/kegiatan?key=SKRIPSI2018')
+    fetch('http://kontrakangg.ddns.net:8635/restServer_transaksi/index.php/rest_server/kegiatan?key=SKRIPSI2018')
     .then(response => response.json())
     .then((json) => {
       for (var i = 0; i < json.length; i++) {
@@ -62,7 +62,7 @@ module.exports = class FormTransaction extends Page {
       left: '10%', right: '10%', top: 'prev() 5',
     }).appendTo(mainScroll);
 
-    fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/tahun?key=SKRIPSI2018')
+    fetch('http://kontrakangg.ddns.net:8635/restServer_transaksi/index.php/rest_server/tahun?key=SKRIPSI2018')
     .then(response => response.json())
     .then((json) => {
 

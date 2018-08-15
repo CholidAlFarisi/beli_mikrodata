@@ -81,7 +81,7 @@ module.exports = class FormTransaction5 extends Page {
       }
 
       let http = new XMLHttpRequest();
-      let url = 'http://192.168.43.2/restServer_transaksi/index.php/rest_server/transaksi';
+      let url = 'http://kontrakangg.ddns.net:8635/restServer_transaksi/index.php/rest_server/transaksi';
 
       let params = "key=SKRIPSI2018&idMedia=M06&id=" + id_konsumen + "&jt=22212&kt=" + ket_transaksi + "&dataDiminta=" + dataDiminta + "&id_wilayah=0000";
       http.open('POST', url, true);

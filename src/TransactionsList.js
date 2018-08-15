@@ -14,7 +14,7 @@ module.exports = class TransactionsList extends CollectionView {
 
 	//Mengirim permintaan data dengan metode GET pada API dari database dan mendapatkan balasan berupa data JSON
 	getJSON() {
-		return fetch('http://192.168.43.2/restServer_transaksi/index.php/rest_server/transaksi?key=SKRIPSI2018&id=' + this.idKonsumen).then(response => response.json());
+		return fetch('http://kontrakangg.ddns.net:8635/restServer_transaksi/index.php/rest_server/transaksi?key=SKRIPSI2018&id=' + this.idKonsumen).then(response => response.json());
 	}
 
 	get transaction() {

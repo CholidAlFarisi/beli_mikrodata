@@ -55,7 +55,7 @@ function goHome () {
   const Home_Page = require('./Home_Page');
 
   let http = new XMLHttpRequest();
-  let url = 'http://192.168.43.2/restServer_transaksi/index.php/rest_server/user';
+  let url = 'http://kontrakangg.ddns.net:8635/restServer_transaksi/index.php/rest_server/user';
 
   let params = "key=SKRIPSI2018&email=" + loginPage.children('#email').first().text + "&pass=" + loginPage.children('#pass').first().text;
   http.open('POST', url, true);
